@@ -37,7 +37,7 @@ interface Props {
 const AccountProfile = ({ user, btnTitle }: Props) => {
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing('media');
-  const router = useRouter;
+  const router = useRouter();
   const pathname = usePathname();
 
   const form = useForm({
@@ -94,6 +94,12 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       userId: user.id,
       path: pathname,
     });
+
+    if (pathname === '/profile/edit') {
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
 
   return (
@@ -160,7 +166,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
         <FormField
           control={form.control}
-          name="name"
+          name="username"
           render={({ field }) => (
             <FormItem className="flex flex-col  gap-3 w-full">
               <FormLabel className="text-basse-semibold text-light-2">
@@ -179,7 +185,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
         <FormField
           control={form.control}
-          name="name"
+          name="bio"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-3 w-full">
               <FormLabel className="text-basse-semibold text-light-2">
